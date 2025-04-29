@@ -5,8 +5,9 @@ import "./assets/scss/custom/limonian-theme.scss";
 // Import pages
 import Login from "./Pages/Authentication/Login";
 import Dashboard from "./Pages/Dashboard";
-import Chat from "./Routes/Chat";
+import Chat2 from "./Routes/Chat";
 import { AuthProtected } from "./Routes/AuthProtected";
+import Chat from "./Pages/Chat/Chat";
 
 // Import layouts
 import VerticalLayout from "./Layout/VerticalLayout";

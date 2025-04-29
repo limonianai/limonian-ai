@@ -6,7 +6,7 @@ import '../../assets/scss/custom/limonian-theme.scss';
 const Header = () => {
   // Get user information from localStorage
   const username = localStorage.getItem("username") || "User";
-  const department = localStorage.getItem("department") || "General";
+  const department = localStorage.getItem("userDepartment") || "General";
   
   // Get user's initial for avatar
   const getUserInitial = (name) => {

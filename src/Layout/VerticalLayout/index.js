@@ -15,7 +15,7 @@ const VerticalLayout = ({ children }) => {
             <div className="user-profile">
               <div className="user-info">
                 <div className="user-name">{localStorage.getItem('username') || 'User'}</div>
-                <div className="user-dept">{localStorage.getItem('department') || 'Department'}</div>
+                <div className="user-dept">{localStorage.getItem('userDepartment') || 'Department'}</div>
               </div>
               <div className="avatar">{(localStorage.getItem('username') || 'U').charAt(0)}</div>
             </div>

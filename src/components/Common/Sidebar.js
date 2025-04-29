@@ -14,7 +14,7 @@ const Sidebar = () => {
     setIsAdmin(admin);
 
     // Get user department
-    const dept = localStorage.getItem("department") || "General";
+    const dept = localStorage.getItem("userDepartment") || "General";
     setUserDept(dept);
 
     // Set active path based on current location

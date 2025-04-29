@@ -1,0 +1,95 @@
+/* Dashboard.css */
+
+/* Genel arkaplan ayarı */
+.page-content {
+    background-color: #121212;
+    min-height: 100vh;
+    padding: 2rem;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Stat kartları */
+  .stat-card {
+    background: rgba(30, 30, 50, 0.85);
+    border: 1px solid rgba(66, 133, 244, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .stat-card:hover {
+    box-shadow: 0 0 20px rgba(66, 133, 244, 0.5);
+  }
+  
+  /* Stat içeriği */
+  .stat-title {
+    color: #a0a0a0;
+  }
+  
+  .stat-value {
+    color: #12c4b4;
+  }
+  
+  /* Stat ikonu */
+  .stat-icon-large {
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Aktif kullanıcılar listesi */
+  .active-users-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+  }
+  
+  .active-users-list li {
+    font-size: 14px;
+    color: #e0e0e0;
+  }
+  
+  /* Chat özet kartı */
+  .chat-card, .chart-card {
+    background: rgba(30, 30, 50, 0.85);
+    border: 1px solid rgba(66, 133, 244, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    color: #e0e0e0;
+  }
+  
+  /* Chat kart başlığı */
+  .chat-title, .chart-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #ffffff;
+  }
+  
+  /* Chat içeriği */
+  .chat-content {
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-y: auto;
+    max-height: 400px;
+    color: #c0c0c0;
+  }
+  
+  /* Spinner */
+  .loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+  }
+  
+  /* Chart rengini override edeceğiz zaten js tarafında */
+  
