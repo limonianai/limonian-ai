@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import "./assets/scss/custom/limonian-theme.scss";
+
+// Import pages
+import Login from "./Pages/Authentication/Login";
+import Dashboard from "./Pages/Dashboard";
+import Chat from "./Routes/Chat";
+import { AuthProtected } from "./Routes/AuthProtected";
+
+// Import layouts
+import VerticalLayout from "./Layout/VerticalLayout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/login" element={<Login />} />
+        
+        {/* Protected routes */}
+        <Route path="/dashboard" element={
+          <AuthProtected>
+            <VerticalLayout>
+              <Dashboard />
+            </VerticalLayout>
+          </AuthProtected>
+        } />
+        
+        <Route path="/chat" element={
+          <AuthProtected>
+            <VerticalLayout>
+              <Chat />
+            </VerticalLayout>
+          </AuthProtected>
+        } />
+        
+        {/* Default redirect */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </Router>
   );
 }
 
