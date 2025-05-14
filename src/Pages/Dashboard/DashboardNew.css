@@ -1,0 +1,386 @@
+/* DashboardNew.css - Modern, sleek styling for the Dashboard */
+
+/* Main container */
+.limonian-dashboard {
+    padding: 1.5rem;
+    min-height: 100%;
+    color: var(--text);
+  }
+  
+  /* Loading screen */
+  .limonian-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    gap: 1rem;
+  }
+  
+  .limonian-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(66, 133, 244, 0.2);
+    border-radius: 50%;
+    border-top-color: #4285f4;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Dashboard header with date/time */
+  .limonian-dashboard-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .limonian-date-display,
+  .limonian-time-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    background-color: rgba(30, 30, 50, 0.6);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(66, 133, 244, 0.2);
+  }
+  
+  .limonian-date-icon,
+  .limonian-time-icon {
+    color: #12c4b4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Welcome section */
+  .limonian-dashboard-welcome {
+    margin-bottom: 2rem;
+  }
+  
+  .limonian-dashboard-welcome h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .limonian-dashboard-welcome p {
+    color: var(--text-dim);
+    max-width: 800px;
+  }
+  
+  /* Stats section */
+  .limonian-dashboard-stats {
+    margin-bottom: 2rem;
+  }
+  
+  .limonian-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .limonian-stat-card {
+    background-color: rgba(30, 30, 50, 0.4);
+    border-radius: 16px;
+    border: 1px solid rgba(66, 133, 244, 0.15);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: all 0.3s ease;
+  }
+  
+  .limonian-stat-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(66, 133, 244, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .limonian-stat-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(66, 133, 244, 0.1);
+    color: #4285f4;
+  }
+  
+  .limonian-stat-icon.blue {
+    background-color: rgba(66, 133, 244, 0.1);
+    color: #4285f4;
+  }
+  
+  .limonian-stat-icon.teal {
+    background-color: rgba(18, 196, 180, 0.1);
+    color: #12c4b4;
+  }
+  
+  .limonian-stat-icon.purple {
+    background-color: rgba(156, 39, 176, 0.1);
+    color: #9c27b0;
+  }
+  
+  .limonian-stat-icon.gold {
+    background-color: rgba(241, 186, 133, 0.1);
+    color: #f1ba85;
+  }
+  
+  .limonian-stat-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .limonian-stat-title {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+  
+  .limonian-stat-value {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  
+  /* Chart section */
+  .limonian-dashboard-charts {
+    margin-bottom: 2rem;
+  }
+  
+  .limonian-chart-card {
+    background-color: rgba(30, 30, 50, 0.4);
+    border-radius: 16px;
+    border: 1px solid rgba(66, 133, 244, 0.15);
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .limonian-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .limonian-chart-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+  
+  .limonian-chart-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  
+  .limonian-chart-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+  }
+  
+  .limonian-chart-body {
+    flex: 1;
+  }
+  
+  /* Bottom section - Summary and Users */
+  .limonian-dashboard-bottom {
+    margin-top: 2rem;
+  }
+  
+  .limonian-summary-card, 
+  .limonian-users-card {
+    background-color: rgba(30, 30, 50, 0.4);
+    border-radius: 16px;
+    border: 1px solid rgba(66, 133, 244, 0.15);
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .limonian-summary-header,
+  .limonian-users-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .limonian-summary-header h2,
+  .limonian-users-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .limonian-summary-progress {
+    margin-top: 0.75rem;
+  }
+  
+  .limonian-progress {
+    height: 6px !important;
+    background-color: rgba(66, 133, 244, 0.1) !important;
+  }
+  
+  .progress-bar {
+    background: linear-gradient(90deg, #4285f4, #12c4b4) !important;
+  }
+  
+  .limonian-summary-body, 
+  .limonian-users-body {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  
+  .limonian-summary-content {
+    line-height: 1.6;
+    color: var(--text);
+  }
+  
+  /* Top Users List */
+  .limonian-users-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .limonian-user-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background-color: rgba(30, 30, 50, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(66, 133, 244, 0.1);
+    transition: all 0.2s ease;
+  }
+  
+  .limonian-user-item:hover {
+    background-color: rgba(66, 133, 244, 0.1);
+    border-color: rgba(66, 133, 244, 0.2);
+  }
+  
+  .limonian-user-rank {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  
+  .limonian-user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  
+  .limonian-user-info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .limonian-user-name {
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .limonian-user-dept {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  
+  .limonian-user-stats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .limonian-user-messages {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #12c4b4;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    .limonian-stat-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .limonian-dashboard-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .limonian-stat-card {
+      padding: 1rem;
+    }
+    
+    .limonian-stat-icon {
+      width: 45px;
+      height: 45px;
+    }
+    
+    .limonian-stat-value {
+      font-size: 1.5rem;
+    }
+    
+    .limonian-chart-card,
+    .limonian-summary-card,
+    .limonian-users-card {
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .limonian-stat-grid {
+      grid-template-columns: 1fr;
+    }
+  }

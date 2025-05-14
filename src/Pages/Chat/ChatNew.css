@@ -1,0 +1,194 @@
+/* ChatNew.css - Completely independent styling for Chat with separate right sidebar */
+
+/* Overall container styles */
+.app-content {
+    position: relative !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  
+  /* Main chat container */
+  .limonian-chat-container {
+    width: 100%;
+    height: calc(100vh - 180px);
+    min-height: 500px;
+    position: relative;
+    border-radius: 16px;
+    background-color: var(--panel);
+  }
+  
+  /* Main chat area */
+  .limonian-chat-area {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(20, 20, 40, 0.8);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-right: 320px; /* Make space for the sidebar */
+  }
+  
+  /* Messages container */
+  .limonian-messages {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Chat bubbles */
+  .limonian-bubble {
+    max-width: 70%;
+    padding: 1rem;
+    border-radius: 16px;
+    line-height: 1.5;
+  }
+  
+  .limonian-bubble.user {
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+    color: white;
+    align-self: flex-end;
+  }
+  
+  .limonian-bubble.bot {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+    align-self: flex-start;
+  }
+  
+  .limonian-username {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .limonian-text {
+    margin: 0;
+  }
+  
+  /* Input area */
+  .limonian-input-container {
+    display: flex;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    background: rgba(30, 30, 50, 0.9);
+    border-top: 1px solid rgba(66, 133, 244, 0.2);
+  }
+  
+  .limonian-input-field {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(66, 133, 244, 0.3) !important;
+    color: #e0e0e0 !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 1rem !important;
+  }
+  
+  .limonian-input-field:focus {
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2) !important;
+    border-color: #4285f4 !important;
+  }
+  
+  .limonian-send-btn {
+    background: linear-gradient(135deg, #4285f4, #12c4b4) !important;
+    border: none !important;
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    padding: 0.75rem 1.5rem !important;
+  }
+  
+  /* Right sidebar - added by JavaScript */
+  .limonian-right-sidebar {
+    width: 300px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--panel);
+    border-left: 1px solid rgba(66, 133, 244, 0.2);
+    border-radius: 0 16px 16px 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 5;
+  }
+  
+  .limonian-sidebar-header {
+    padding: 1.25rem;
+    border-bottom: 1px solid rgba(66, 133, 244, 0.2);
+  }
+  
+  .limonian-sidebar-header h5 {
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .limonian-sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  
+  .limonian-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .limonian-history-item {
+    width: 100%;
+  }
+  
+  .limonian-history-button {
+    width: 100%;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(66, 133, 244, 0.15) !important;
+    border-radius: 10px !important;
+    padding: 0.75rem !important;
+    transition: all 0.2s ease;
+    color: #e0e0e0 !important;
+  }
+  
+  .limonian-history-button:hover {
+    background-color: rgba(66, 133, 244, 0.1) !important;
+    border-color: rgba(66, 133, 244, 0.3) !important;
+  }
+  
+  .limonian-history-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .limonian-history-date {
+    font-size: 0.8rem;
+    color: rgba(224, 224, 224, 0.7);
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 992px) {
+    .limonian-chat-area {
+      margin-right: 0;
+      margin-bottom: 250px; /* Space for sidebar on mobile */
+    }
+    
+    .limonian-right-sidebar {
+      width: 100%;
+      height: 240px;
+      top: auto;
+      bottom: 0;
+      border-left: none;
+      border-top: 1px solid rgba(66, 133, 244, 0.2);
+      border-radius: 0 0 16px 16px;
+    }
+  }

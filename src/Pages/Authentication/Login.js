@@ -12,13 +12,13 @@ import {
   Label,
 } from "reactstrap";
 import axiosInstance from "../../helpers/axiosConfig";
-import "./Login.css";
-
+import "./LoginNew.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +32,13 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
+
+    if (!username.trim() || !password.trim()) {
+      setError("Lütfen kullanıcı adı ve şifre giriniz.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axiosInstance.post("/account/login", { username, password });
@@ -54,29 +61,44 @@ const Login = () => {
     } catch (err) {
       console.error("Giriş hatası:", err);
       setError("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="login-page">
-      <Container>
+    <div className="limonian-login">
+      <div className="limonian-login-background">
+        <div className="limonian-animated-bg"></div>
+      </div>
+      
+      <Container className="limonian-login-container">
         <Row className="justify-content-center">
-          <Col lg={6} md={8} xl={4}>
-            <Card className="login-card">
-              <CardBody className="p-4">
-                <div className="text-center mb-4">
-                  <h4 className="login-title">Hoşgeldiniz!</h4>
-                  <p className="text-muted">LimonianAI için giriş yapınız.</p>
+          <Col lg={4} md={6} sm={8} xs={11}>
+            <div className="limonian-login-logo">
+              <div className="limonian-logo-icon">L</div>
+              <h1>Limonian AI</h1>
+            </div>
+            
+            <Card className="limonian-login-card">
+              <CardBody className="limonian-login-card-body">
+                <div className="limonian-login-header">
+                  <h2>Hoşgeldiniz</h2>
+                  <p>Limonian AI Portal'a giriş yapın</p>
                 </div>
 
-                {error && <Alert color="danger">{error}</Alert>}
+                {error && (
+                  <Alert color="danger" className="limonian-login-alert">
+                    {error}
+                  </Alert>
+                )}
 
-                <Form onSubmit={handleLogin}>
-                  <div className="mb-3">
-                    <Label className="form-label">Kullanıcı Adı</Label>
+                <Form onSubmit={handleLogin} className="limonian-login-form">
+                  <div className="limonian-form-group">
+                    <Label className="limonian-form-label">Kullanıcı Adı</Label>
                     <Input
                       type="text"
-                      className="login-input"
+                      className="limonian-form-input"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       placeholder="Kullanıcı adınızı giriniz"
@@ -84,11 +106,11 @@ const Login = () => {
                     />
                   </div>
 
-                  <div className="mb-3">
-                    <Label className="form-label">Şifre</Label>
+                  <div className="limonian-form-group">
+                    <Label className="limonian-form-label">Şifre</Label>
                     <Input
                       type="password"
-                      className="login-input"
+                      className="limonian-form-input"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Şifrenizi giriniz"
@@ -96,17 +118,23 @@ const Login = () => {
                     />
                   </div>
 
-                  <div className="d-grid">
-                    <button type="submit" className="login-button">Giriş Yap</button>
-                  </div>
+                  <button 
+                    type="submit" 
+                    className="limonian-login-button"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <span className="limonian-loading-spinner"></span>
+                    ) : (
+                      "Giriş Yap"
+                    )}
+                  </button>
                 </Form>
               </CardBody>
             </Card>
 
-            <div className="mt-5 text-center">
-              <p className="text-white-50">
-                © {new Date().getFullYear()} LimonianAI. Crafted by Behlül.
-              </p>
+            <div className="limonian-login-footer">
+              <p>© {new Date().getFullYear()} Limonian AI. Tüm hakları saklıdır.</p>
             </div>
           </Col>
         </Row>

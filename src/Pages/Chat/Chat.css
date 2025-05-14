@@ -1,10 +1,14 @@
-.chat-page .container {
+.chat-page {
+    height: 100%;
+  }
+  
+  .chat-page .container {
     max-width: 100% !important;
     width: 100% !important;
     padding: 0 !important;
     overflow-x: hidden;
   }
-
+  
   .chat-thread-list {
     list-style: none;
     padding: 0;
@@ -16,13 +20,39 @@
     font-size: 0.9rem;
   }
   
+  /* Main chat container */
+  .chat-main {
+    height: 100vh;
+    padding: 0;
+  }
+  
+  /* Chat sidebar styling */
+  .chat-sidebar {
+    height: 100vh;
+    overflow-y: auto;
+    background-color: var(--panel);
+    border-left: 1px solid rgba(66, 133, 244, 0.2);
+  }
+  
+  .right-sidebar {
+    border-left: 1px solid rgba(66, 133, 244, 0.2);
+  }
+  
+  .sidebar-title {
+    color: var(--text);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(66, 133, 244, 0.2);
+    padding-bottom: 0.75rem;
+  }
+  
+  /* Chat area styling */
   .chat-area {
     display: flex;
     flex-direction: column;
     height: 100vh;
     background-color: rgba(20, 20, 40, 0.8);
     width: 100%;
-   
     overflow: hidden;
   }
   
@@ -76,11 +106,33 @@
     padding: 0.75rem 1.5rem;
     border: none;
   }
-
-
-.chat-tab-button.new-tab {
-  background: transparent;
-  color: #12c4b4;
-  border: 1px dashed #12c4b4;
-}
-
+  
+  .chat-tab-button.new-tab {
+    background: transparent;
+    color: #12c4b4;
+    border: 1px dashed #12c4b4;
+  }
+  
+  /* Responsive styles for mobile */
+  @media (max-width: 768px) {
+    .chat-main, .chat-sidebar {
+      height: auto;
+    }
+    
+    .row.h-100 {
+      flex-direction: column-reverse;
+    }
+    
+    .chat-sidebar {
+      max-height: 300px;
+      margin-bottom: 1rem;
+    }
+    
+    .chat-area {
+      height: calc(100vh - 300px);
+    }
+    
+    .chat-messages {
+      max-height: calc(100vh - 400px);
+    }
+  }

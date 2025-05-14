@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Col, Input, Button, Card, CardBody } from "reactstrap";
+import { Input, Button } from "reactstrap";
 import axiosInstance from "../../helpers/axiosConfig";
-import "./Chat.css";
+import "./ChatNew.css";
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
-
 
 const Chat = () => {
   const [query, setQuery] = useState("");
@@ -120,67 +119,130 @@ const Chat = () => {
     getThreadMessages();
   };
 
+  // Effect to create and inject the sidebar on component mount
+  useEffect(() => {
+    // Function to create the sidebar element
+    const createSidebar = () => {
+      // Remove any existing sidebar to prevent duplicates
+      const existingSidebar = document.querySelector('.limonian-right-sidebar');
+      if (existingSidebar) {
+        existingSidebar.remove();
+      }
+
+      // Create the sidebar container
+      const sidebar = document.createElement('div');
+      sidebar.className = 'limonian-right-sidebar';
+
+      // Create the header
+      const header = document.createElement('div');
+      header.className = 'limonian-sidebar-header';
+      
+      const title = document.createElement('h5');
+      title.textContent = 'Önceki Konuşmalar';
+      header.appendChild(title);
+      
+      // Create the content container
+      const content = document.createElement('div');
+      content.className = 'limonian-sidebar-content';
+      
+      // Create the history list
+      const historyList = document.createElement('ul');
+      historyList.className = 'limonian-history-list';
+      
+      // Add chat history items
+      if (Array.isArray(previousChats)) {
+        previousChats.forEach(chat => {
+          const listItem = document.createElement('li');
+          listItem.className = 'limonian-history-item';
+          
+          const button = document.createElement('button');
+          button.className = 'limonian-history-button';
+          button.onclick = () => handleChatClick(chat.Id);
+          
+          const titleDiv = document.createElement('div');
+          titleDiv.className = 'limonian-history-title';
+          titleDiv.textContent = chat.Title;
+          
+          const dateDiv = document.createElement('div');
+          dateDiv.className = 'limonian-history-date';
+          dateDiv.textContent = new Date(chat.CreatedAt).toLocaleString();
+          
+          button.appendChild(titleDiv);
+          button.appendChild(dateDiv);
+          listItem.appendChild(button);
+          historyList.appendChild(listItem);
+        });
+      }
+      
+      content.appendChild(historyList);
+      
+      // Assemble the sidebar
+      sidebar.appendChild(header);
+      sidebar.appendChild(content);
+      
+      // Attach to the parent container
+      const chatContainer = document.querySelector('.limonian-chat-container');
+      if (chatContainer) {
+        chatContainer.appendChild(sidebar);
+      } else {
+        // Fallback to app-content if the chat container isn't found
+        const appContent = document.querySelector('.app-content');
+        if (appContent) {
+          appContent.appendChild(sidebar);
+        }
+      }
+    };
+
+    // Create the sidebar on mount and whenever previousChats changes
+    createSidebar();
+
+    // Clean up on unmount
+    return () => {
+      const sidebar = document.querySelector('.limonian-right-sidebar');
+      if (sidebar) {
+        sidebar.remove();
+      }
+    };
+  }, [previousChats, handleChatClick]);
+
   return (
-   
-      <Container fluid className="h-100 p-0">
-        <Row className="h-100 g-0">
-          <Col md={3} className="chat-sidebar">
-            <Card className="h-100">
-              <CardBody>
-                <h5 className="sidebar-title">Önceki Konuşmalar</h5>
-                <ul className="chat-thread-list">
-                  {Array.isArray(previousChats) && previousChats.map(chat => (
-                    <li key={chat.Id}>
-                      <Button
-                        color="light"
-                        className="w-100 text-start chat-thread-button"
-                        onClick={() => handleChatClick(chat.Id)}
-                      >
-                        {chat.Title} - {new Date(chat.CreatedAt).toLocaleString()}
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              </CardBody>
-            </Card>
-          </Col>
-
-       <Col md={12} className="chat-area">
-       
-            <div className="chat-messages">
-              {responses.map((response, idx) => (
-              <div className={`chat-bubble ${response.isUser ? "user" : "bot"}`}>
+    <div className="limonian-chat-container">
+      {/* Main Chat Area */}
+      <div className="limonian-chat-area">
+        <div className="limonian-messages">
+          {responses.map((response, idx) => (
+            <div key={idx} className={`limonian-bubble ${response.isUser ? "user" : "bot"}`}>
               {!response.isUser && (
-                <strong className="d-block mb-1">{response.username}</strong>
+                <strong className="limonian-username">{response.username}</strong>
               )}
-              <p className="mb-0">{response.text}</p>
+              <p className="limonian-text">{response.text}</p>
             </div>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
 
-            <div className="chat-input-container">
-              <Input
-                type="text"
-                placeholder="Mesajınızı yazın..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="chat-input"
-              />
-              <Button
-                color="primary"
-                onClick={handleSendQuery}
-                disabled={isLoading}
-                className="chat-send-button"
-              >
-                {isLoading ? "Gönderiliyor..." : "Gönder"}
-              </Button>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-   
+        <div className="limonian-input-container">
+          <Input
+            type="text"
+            placeholder="Mesajınızı yazın..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="limonian-input-field"
+          />
+          <Button
+            color="primary"
+            onClick={handleSendQuery}
+            disabled={isLoading}
+            className="limonian-send-btn"
+          >
+            {isLoading ? "Gönderiliyor..." : "Gönder"}
+          </Button>
+        </div>
+      </div>
+      
+      {/* The sidebar will be injected via the useEffect above */}
+    </div>
   );
 };
 

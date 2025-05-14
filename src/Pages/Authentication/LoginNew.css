@@ -1,0 +1,283 @@
+/* LoginNew.css - Enhanced styling for Login page */
+
+/* Main container */
+.limonian-login {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Animated background */
+  .limonian-login-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #121212;
+    z-index: -1;
+  }
+  
+  .limonian-animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 15% 25%, rgba(66, 133, 244, 0.08) 0%, transparent 25%),
+      radial-gradient(circle at 85% 75%, rgba(18, 196, 180, 0.08) 0%, transparent 25%);
+    animation: backgroundPulse 15s ease-in-out infinite alternate;
+  }
+  
+  @keyframes backgroundPulse {
+    0% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    100% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+  }
+  
+  /* Login container */
+  .limonian-login-container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1rem;
+    max-width: 450px; /* Make the container smaller */
+  }
+  
+  /* Logo */
+  .limonian-login-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .limonian-logo-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(66, 133, 244, 0.5);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .limonian-logo-icon::after {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg) translateX(-100%);
+    animation: shineEffect 3s infinite;
+  }
+  
+  @keyframes shineEffect {
+    0% {
+      transform: rotate(45deg) translateX(-100%);
+    }
+    100% {
+      transform: rotate(45deg) translateX(100%);
+    }
+  }
+  
+  .limonian-login-logo h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  /* Login card */
+  .limonian-login-card {
+    background-color: rgba(26, 26, 46, 0.85) !important;
+    border: 1px solid rgba(66, 133, 244, 0.2) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 400px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1.1; /* More square-like ratio */
+  }
+  
+  .limonian-login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
+  }
+  
+  .limonian-login-card-body {
+    padding: 1.8rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  /* Login header */
+  .limonian-login-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .limonian-login-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .limonian-login-header p {
+    color: #a0a0a0;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
+  /* Alert */
+  .limonian-login-alert {
+    background-color: rgba(244, 67, 54, 0.1) !important;
+    border: 1px solid rgba(244, 67, 54, 0.3) !important;
+    color: #ff6b6b !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Form */
+  .limonian-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  .limonian-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .limonian-form-label {
+    color: #e0e0e0 !important;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  
+  .limonian-form-input {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(66, 133, 244, 0.2) !important;
+    color: #e0e0e0 !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease;
+  }
+  
+  .limonian-form-input:focus {
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.15) !important;
+    border-color: rgba(66, 133, 244, 0.5) !important;
+    background-color: rgba(255, 255, 255, 0.07) !important;
+  }
+  
+  .limonian-form-input::placeholder {
+    color: rgba(224, 224, 224, 0.4);
+  }
+  
+  /* Login button */
+  .limonian-login-button {
+    background: linear-gradient(135deg, #4285f4, #12c4b4) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 0.9rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    margin-top: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .limonian-login-button:hover {
+    box-shadow: 0 0 20px rgba(66, 133, 244, 0.4) !important;
+    transform: translateY(-2px);
+  }
+  
+  .limonian-login-button:active {
+    transform: translateY(1px);
+  }
+  
+  .limonian-login-button:disabled {
+    background: rgba(66, 133, 244, 0.5) !important;
+    cursor: not-allowed !important;
+  }
+  
+  /* Loading spinner */
+  .limonian-loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Footer */
+  .limonian-login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: rgba(224, 224, 224, 0.5);
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .limonian-login-card-body {
+      padding: 2rem 1.5rem !important;
+    }
+    
+    .limonian-logo-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+    }
+    
+    .limonian-login-logo h1 {
+      font-size: 1.8rem;
+    }
+  }
