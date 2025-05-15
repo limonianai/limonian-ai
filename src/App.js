@@ -1,43 +1,124 @@
+// src/App.js - Basit ve stabil route yapısı
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./assets/scss/custom/limonian-theme.scss";
 
 // Import pages
 import Login from "./Pages/Authentication/Login";
-import Dashboard from "./Pages/Dashboard";
-import Chat2 from "./Routes/Chat";
-import { AuthProtected } from "./Routes/AuthProtected";
 import Chat from "./Pages/Chat/Chat";
+import AdminDashboard from "./Pages/Dashboard";
+import YazilimDashboard from "./Pages/Departments/Yazilim/Dashboard";
+import CodeTest from "./Pages/Departments/Yazilim/CodeTest";
 
 // Import layouts
 import VerticalLayout from "./Layout/VerticalLayout";
+
+// Basit Auth Check
+const ProtectedRoute = ({ children, requireAdmin = false }) => {
+  const token = localStorage.getItem("token");
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
+  
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  if (requireAdmin && !isAdmin) {
+    return <Navigate to="/chat" replace />;
+  }
+  
+  return children;
+};
+
+// Root Redirect
+const RootRedirect = () => {
+  const token = localStorage.getItem("token");
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
+  const userDepartment = localStorage.getItem("userDepartment");
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (isAdmin) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
+  if (userDepartment === "Yazilim") {
+    return <Navigate to="/yazilim/dashboard" replace />;
+  }
+
+  return <Navigate to="/chat" replace />;
+};
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Public routes */}
+        {/* Public */}
         <Route path="/login" element={<Login />} />
         
-        {/* Protected routes */}
-        <Route path="/dashboard" element={
-          <AuthProtected>
+        {/* Root */}
+        <Route path="/" element={<RootRedirect />} />
+        
+        {/* Admin */}
+        <Route path="/admin/dashboard" element={
+          <ProtectedRoute requireAdmin={true}>
             <VerticalLayout>
-              <Dashboard />
+              <AdminDashboard />
             </VerticalLayout>
-          </AuthProtected>
+          </ProtectedRoute>
         } />
         
+        {/* Yazilim */}
+        <Route path="/yazilim/dashboard" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <YazilimDashboard />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/yazilim/code-test" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <CodeTest />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        {/* Common */}
         <Route path="/chat" element={
-          <AuthProtected>
+          <ProtectedRoute>
             <VerticalLayout>
               <Chat />
             </VerticalLayout>
-          </AuthProtected>
+          </ProtectedRoute>
         } />
         
-        {/* Default redirect */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/how-to-use" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <div className="limonian-dashboard">
+                <h1>Nasıl Kullanılır</h1>
+                <p>Bu sayfa geliştirilecek.</p>
+              </div>
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <div className="limonian-dashboard">
+                <h1>Profil</h1>
+                <p>Bu sayfa geliştirilecek.</p>
+              </div>
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        {/* Fallback */}
+        <Route path="*" element={<RootRedirect />} />
       </Routes>
     </Router>
   );

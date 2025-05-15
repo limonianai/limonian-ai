@@ -1,14 +1,20 @@
+// src/index.js - React.StrictMode'u kaldırarak düzeltelim
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// Style imports
 import "./assets/scss/custom/limonian-theme.scss";
+import "./assets/scss/custom/department-sidebar.scss";
+import "./assets/scss/custom/department-features.scss";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// React.StrictMode'u kaldırdık - bu double mount'a neden oluyor
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <App />
 );
 
 // If you want to start measuring performance in your app, pass a function

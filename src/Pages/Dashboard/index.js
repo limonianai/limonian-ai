@@ -62,6 +62,7 @@ const Dashboard = () => {
       const topUsersResponse = await axiosInstance.get('/admin/top-users', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
+      
       setTopUsers(topUsersResponse);
 
       const fileCountResponse = await axiosInstance.get('/admin/file-count', {
@@ -341,7 +342,7 @@ const Dashboard = () => {
                   {topUsers.map((user, index) => (
                     <li key={user.UserId} className="limonian-user-item">
                       <div className="limonian-user-rank">{index + 1}</div>
-                      <div className="limonian-user-avatar">{user.Username.charAt(0)}</div>
+                      <div className="limonian-user-avatar">{user.Username.charAt(0).toUpperCase()}</div>
                       <div className="limonian-user-info">
                         <div className="limonian-user-name">{user.Username}</div>
                         <div className="limonian-user-dept">{user.Department || 'Genel'}</div>

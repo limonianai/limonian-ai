@@ -1,3 +1,4 @@
+// src/Pages/Authentication/Login.js - Basit ve stabil version
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,39 +23,34 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Sadece token kontrolü
     const token = localStorage.getItem("token");
     if (token) {
-      const isAdmin = localStorage.getItem("isAdmin") === "true";
-      navigate(isAdmin ? "/dashboard" : "/chat");
+      // Var olan session varsa redirect
+      window.location.href = '/';
     }
-  }, [navigate]);
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    if (!username.trim() || !password.trim()) {
-      setError("Lütfen kullanıcı adı ve şifre giriniz.");
-      setLoading(false);
-      return;
-    }
-
     try {
       const response = await axiosInstance.post("/account/login", { username, password });
 
-      if (response.token) {
+      if (response && response.token) {
+        // localStorage'ı set et
         localStorage.setItem("token", response.token);
         localStorage.setItem("username", response.username);
-        localStorage.setItem("isAdmin", response.isAdmin);
-        localStorage.setItem("userId", response.userid);
+        localStorage.setItem("isAdmin", String(response.isAdmin));
+        localStorage.setItem("userId", String(response.userid));
         localStorage.setItem("userDepartment", response.department);
-
-        if (response.isAdmin) {
-          navigate("/dashboard");
-        } else {
-          navigate("/chat");
-        }
+        
+        console.log('Login successful, department:', response.department);
+        
+        // Hard redirect - bu kesin çalışır
+        window.location.href = '/';
       } else {
         setError("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
       }
