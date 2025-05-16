@@ -126,6 +126,24 @@ const DepartmentSidebar = () => {
               </Link>
             </li>
             <li>
+  <Link 
+    to="/admin/create-user"
+    className={location.pathname === "/admin/create-user" ? "active" : ""}
+  >
+    <div className="menu-icon">👤</div>
+    <span>Kullanıcı Oluştur</span>
+  </Link>
+</li>
+             <li>
+              <Link 
+                to="/admin/chat-interactions"
+                className={location.pathname === "/admin/chat-interactions" ? "active" : ""}
+              >
+                <div className="menu-icon">📋</div>
+                <span>Tüm Sohbetler</span>
+              </Link>
+            </li>
+            <li>
               <Link 
                 to="/admin/reports"
                 className={location.pathname === "/admin/reports" ? "active" : ""}

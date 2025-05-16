@@ -9,7 +9,9 @@ import Chat from "./Pages/Chat/Chat";
 import AdminDashboard from "./Pages/Dashboard";
 import YazilimDashboard from "./Pages/Departments/Yazilim/Dashboard";
 import CodeTest from "./Pages/Departments/Yazilim/CodeTest";
-
+import ListUsers from "./Pages/Admin/listUsers";
+import ChatInteractions from "./Pages/Admin/ChatInteractions";
+import CreateUser from "./Pages/Admin/CreateUser";
 // Import layouts
 import VerticalLayout from "./Layout/VerticalLayout";
 
@@ -69,6 +71,29 @@ function App() {
           </ProtectedRoute>
         } />
         
+        <Route path="/admin/users" element={
+          <ProtectedRoute requireAdmin={true}>
+            <VerticalLayout>
+              <ListUsers />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/chat-interactions" element={
+  <ProtectedRoute requireAdmin={true}>
+    <VerticalLayout>
+      <ChatInteractions />
+    </VerticalLayout>
+  </ProtectedRoute>
+} />
+<Route path="/admin/create-user" element={
+  <ProtectedRoute requireAdmin={true}>
+    <VerticalLayout>
+      <CreateUser />
+    </VerticalLayout>
+  </ProtectedRoute>
+} />
+
         {/* Yazilim */}
         <Route path="/yazilim/dashboard" element={
           <ProtectedRoute>
