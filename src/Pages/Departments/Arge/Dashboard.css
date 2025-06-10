@@ -1,0 +1,428 @@
+/* src/Pages/Departments/Arge/Dashboard.css */
+/* Ar-Ge departmanı dashboard özel stilleri */
+
+/* Activity List Styles */
+.arge-activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .arge-activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: rgba(30, 30, 50, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(66, 133, 244, 0.1);
+    transition: all 0.2s ease;
+  }
+  
+  .arge-activity-item:hover {
+    background-color: rgba(66, 133, 244, 0.05);
+    border-color: rgba(66, 133, 244, 0.2);
+    transform: translateX(3px);
+  }
+  
+  .arge-activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+  
+  .arge-activity-icon.success {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+  }
+  
+  .arge-activity-icon.progress {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+  }
+  
+  .arge-activity-icon.info {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+  }
+  
+  .arge-activity-icon.pending {
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  }
+  
+  .arge-activity-content {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .arge-activity-message {
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    line-height: 1.4;
+  }
+  
+  .arge-activity-time {
+    color: var(--text-dim);
+    font-size: 0.875rem;
+  }
+  
+  .arge-activity-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  
+  .arge-activity-status.success .status-dot {
+    background-color: #4caf50;
+  }
+  
+  .arge-activity-status.progress .status-dot {
+    background-color: #2196f3;
+  }
+  
+  .arge-activity-status.info .status-dot {
+    background-color: #ff9800;
+  }
+  
+  .arge-activity-status.pending .status-dot {
+    background-color: #9c27b0;
+  }
+  
+  /* Quick Actions Styles */
+  .arge-quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .arge-quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(30, 30, 50, 0.5);
+    border: 1px solid rgba(66, 133, 244, 0.15);
+    border-radius: 12px;
+    color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .arge-quick-action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  
+  .arge-quick-action-btn.blue::before {
+    background: linear-gradient(90deg, #4285f4, #3367d6);
+  }
+  
+  .arge-quick-action-btn.teal::before {
+    background: linear-gradient(90deg, #12c4b4, #0da394);
+  }
+  
+  .arge-quick-action-btn.purple::before {
+    background: linear-gradient(90deg, #9c27b0, #7b1fa2);
+  }
+  
+  .arge-quick-action-btn.gold::before {
+    background: linear-gradient(90deg, #f1ba85, #e79476);
+  }
+  
+  .arge-quick-action-btn:hover {
+    background-color: rgba(66, 133, 244, 0.1);
+    border-color: rgba(66, 133, 244, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--text);
+  }
+  
+  .arge-quick-action-btn:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .arge-action-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .arge-quick-action-btn.blue .arge-action-icon {
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(66, 133, 244, 0.05));
+    color: #4285f4;
+    border: 1px solid rgba(66, 133, 244, 0.2);
+  }
+  
+  .arge-quick-action-btn.teal .arge-action-icon {
+    background: linear-gradient(135deg, rgba(18, 196, 180, 0.1), rgba(18, 196, 180, 0.05));
+    color: #12c4b4;
+    border: 1px solid rgba(18, 196, 180, 0.2);
+  }
+  
+  .arge-quick-action-btn.purple .arge-action-icon {
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), rgba(156, 39, 176, 0.05));
+    color: #9c27b0;
+    border: 1px solid rgba(156, 39, 176, 0.2);
+  }
+  
+  .arge-quick-action-btn.gold .arge-action-icon {
+    background: linear-gradient(135deg, rgba(241, 186, 133, 0.1), rgba(241, 186, 133, 0.05));
+    color: #f1ba85;
+    border: 1px solid rgba(241, 186, 133, 0.2);
+  }
+  
+  .arge-action-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    text-align: left;
+  }
+  
+  .arge-action-title {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  
+  .arge-action-description {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  
+  /* Progress Styles */
+  .arge-progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .arge-progress-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .progress-label {
+    font-weight: 500;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+  
+  .progress-percent {
+    font-weight: 600;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  
+  .progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(66, 133, 244, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  /* Todo List Styles */
+  .arge-todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .arge-todo-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background-color: rgba(30, 30, 50, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(66, 133, 244, 0.1);
+    transition: all 0.2s ease;
+  }
+  
+  .arge-todo-item:hover {
+    background-color: rgba(66, 133, 244, 0.05);
+    border-color: rgba(66, 133, 244, 0.15);
+  }
+  
+  .arge-todo-item.completed {
+    opacity: 0.7;
+  }
+  
+  .arge-todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: var(--text-dim);
+  }
+  
+  .todo-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid rgba(66, 133, 244, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+  
+  .todo-checkbox.checked {
+    background: linear-gradient(135deg, #4285f4, #12c4b4);
+    border-color: transparent;
+    color: white;
+  }
+  
+  .todo-text {
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  /* Pulse Animation */
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .arge-activity-item {
+      padding: 0.75rem;
+      gap: 0.75rem;
+    }
+    
+    .arge-activity-icon {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .arge-quick-action-btn {
+      padding: 0.75rem;
+      gap: 0.75rem;
+    }
+    
+    .arge-action-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .arge-action-title {
+      font-size: 0.95rem;
+    }
+    
+    .arge-action-description {
+      font-size: 0.8rem;
+    }
+    
+    .arge-progress-list {
+      gap: 1.25rem;
+    }
+    
+    .arge-todo-item {
+      padding: 0.65rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .arge-activity-item {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 0.5rem;
+    }
+    
+    .arge-activity-item .arge-activity-status {
+      align-self: flex-end;
+      margin-top: -2rem;
+    }
+    
+    .arge-quick-action-btn {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+    
+    .arge-action-content {
+      text-align: center;
+    }
+  }

@@ -92,6 +92,76 @@ const DepartmentSidebar = () => {
           </div>
         </>
       )}
+{/* Arge Departmanı için özel menu */}
+{userDepartment === 'Arge' && (
+        <>
+          <div className="sidebar-section">
+            <h3>Araştırma & Geliştirme</h3>
+            <ul className="sidebar-menu">
+              <li>
+                <Link 
+                  to="/arge/dashboard"
+                  className={location.pathname === "/arge/dashboard" ? "active" : ""}
+                >
+                  <div className="menu-icon">📊</div>
+                  <span>Ar-Ge Dashboard</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/chat"
+                  className={location.pathname === "/chat" ? "active" : ""}
+                >
+                  <div className="menu-icon">💬</div>
+                  <span>AI Chat</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/arge/product-analysis"
+                  className={location.pathname === "/arge/product-analysis" ? "active" : ""}
+                >
+                  <div className="menu-icon">📈</div>
+                  <span>Ürün Analizi</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/arge/trend-research"
+                  className={location.pathname === "/arge/trend-research" ? "active" : ""}
+                >
+                  <div className="menu-icon">🔍</div>
+                  <span>Trend Araştırması</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className="sidebar-section">
+            <h3>Veri & Analitik</h3>
+            <ul className="sidebar-menu">
+              <li>
+                <Link 
+                  to="/arge/data-collection"
+                  className={location.pathname === "/arge/data-collection" ? "active" : ""}
+                >
+                  <div className="menu-icon">🗄️</div>
+                  <span>Veri Toplama</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/arge/reports"
+                  className={location.pathname === "/arge/reports" ? "active" : ""}
+                >
+                  <div className="menu-icon">📋</div>
+                  <span>Raporlar</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </>
+      )}
 
       {/* Admin Departmanı için özel menu */}
       {isAdmin && (
@@ -156,8 +226,8 @@ const DepartmentSidebar = () => {
         </div>
       )}
 
-      {/* Hiçbir özel departman yoksa varsayılan menu */}
-      {!isAdmin && userDepartment !== 'Yazilim' && (
+      
+      {/* {!isAdmin && userDepartment !== 'Yazilim' && (
         <div className="sidebar-section">
           <h3>Genel</h3>
           <ul className="sidebar-menu">
@@ -172,7 +242,7 @@ const DepartmentSidebar = () => {
             </li>
           </ul>
         </div>
-      )}
+      )} */}
 
       {/* Help Section */}
       <div className="sidebar-section">

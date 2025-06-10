@@ -12,6 +12,8 @@ import CodeTest from "./Pages/Departments/Yazilim/CodeTest";
 import ListUsers from "./Pages/Admin/listUsers";
 import ChatInteractions from "./Pages/Admin/ChatInteractions";
 import CreateUser from "./Pages/Admin/CreateUser";
+import ArgeDashboard from "./Pages/Departments/Arge/Dashboard";
+import ProductAnalysis from "./Pages/Departments/Arge/ProductAnalysis";
 // Import layouts
 import VerticalLayout from "./Layout/VerticalLayout";
 
@@ -19,6 +21,7 @@ import VerticalLayout from "./Layout/VerticalLayout";
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const token = localStorage.getItem("token");
   const isAdmin = localStorage.getItem("isAdmin") === "true";
+  const userDepartment = localStorage.getItem("userDepartment");
   
   if (!token) {
     return <Navigate to="/login" replace />;
@@ -27,7 +30,7 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
   if (requireAdmin && !isAdmin) {
     return <Navigate to="/chat" replace />;
   }
-  
+ 
   return children;
 };
 
@@ -110,7 +113,55 @@ function App() {
             </VerticalLayout>
           </ProtectedRoute>
         } />
+        {/* Arge */}
+        <Route path="/arge/dashboard" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <ArgeDashboard />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
         
+        <Route path="/arge/product-analysis" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <ProductAnalysis />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/arge/trend-research" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <div className="limonian-dashboard">
+                <h1>Trend Araştırması</h1>
+                <p>Bu sayfa geliştirilecek.</p>
+              </div>
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/arge/data-collection" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <div className="limonian-dashboard">
+                <h1>Veri Toplama</h1>
+                <p>Bu sayfa geliştirilecek.</p>
+              </div>
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/arge/reports" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <div className="limonian-dashboard">
+                <h1>Raporlar</h1>
+                <p>Bu sayfa geliştirilecek.</p>
+              </div>
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
         {/* Common */}
         <Route path="/chat" element={
           <ProtectedRoute>
