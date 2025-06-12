@@ -1,4 +1,4 @@
-// src/App.js - Basit ve stabil route yapısı
+// src/App.js - Türkiye Uygunluk route'u eklendi
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./assets/scss/custom/limonian-theme.scss";
@@ -14,6 +14,9 @@ import ChatInteractions from "./Pages/Admin/ChatInteractions";
 import CreateUser from "./Pages/Admin/CreateUser";
 import ArgeDashboard from "./Pages/Departments/Arge/Dashboard";
 import ProductAnalysis from "./Pages/Departments/Arge/ProductAnalysis";
+import CompetitorAnalysis from "./Pages/Departments/Arge/CompetitorAnalysis";
+import TurkeyCompliance from "./Pages/Departments/Arge/TurkeyCompliance"; // YENİ EKLENEN
+
 // Import layouts
 import VerticalLayout from "./Layout/VerticalLayout";
 
@@ -21,7 +24,6 @@ import VerticalLayout from "./Layout/VerticalLayout";
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const token = localStorage.getItem("token");
   const isAdmin = localStorage.getItem("isAdmin") === "true";
-  const userDepartment = localStorage.getItem("userDepartment");
   
   if (!token) {
     return <Navigate to="/login" replace />;
@@ -50,6 +52,10 @@ const RootRedirect = () => {
 
   if (userDepartment === "Yazilim") {
     return <Navigate to="/yazilim/dashboard" replace />;
+  }
+
+  if (userDepartment === "Arge") {
+    return <Navigate to="/arge/dashboard" replace />;
   }
 
   return <Navigate to="/chat" replace />;
@@ -83,19 +89,20 @@ function App() {
         } />
 
         <Route path="/admin/chat-interactions" element={
-  <ProtectedRoute requireAdmin={true}>
-    <VerticalLayout>
-      <ChatInteractions />
-    </VerticalLayout>
-  </ProtectedRoute>
-} />
-<Route path="/admin/create-user" element={
-  <ProtectedRoute requireAdmin={true}>
-    <VerticalLayout>
-      <CreateUser />
-    </VerticalLayout>
-  </ProtectedRoute>
-} />
+          <ProtectedRoute requireAdmin={true}>
+            <VerticalLayout>
+              <ChatInteractions />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/admin/create-user" element={
+          <ProtectedRoute requireAdmin={true}>
+            <VerticalLayout>
+              <CreateUser />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
 
         {/* Yazilim */}
         <Route path="/yazilim/dashboard" element={
@@ -113,6 +120,7 @@ function App() {
             </VerticalLayout>
           </ProtectedRoute>
         } />
+        
         {/* Arge */}
         <Route path="/arge/dashboard" element={
           <ProtectedRoute>
@@ -126,6 +134,23 @@ function App() {
           <ProtectedRoute>
             <VerticalLayout>
               <ProductAnalysis />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/arge/competitor-analysis" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <CompetitorAnalysis />
+            </VerticalLayout>
+          </ProtectedRoute>
+        } />
+        
+        {/* YENİ EKLENEN TÜRKİYE UYGUNLUK ROUTE */}
+        <Route path="/arge/turkey-compliance" element={
+          <ProtectedRoute>
+            <VerticalLayout>
+              <TurkeyCompliance />
             </VerticalLayout>
           </ProtectedRoute>
         } />
@@ -162,6 +187,7 @@ function App() {
             </VerticalLayout>
           </ProtectedRoute>
         } />
+        
         {/* Common */}
         <Route path="/chat" element={
           <ProtectedRoute>

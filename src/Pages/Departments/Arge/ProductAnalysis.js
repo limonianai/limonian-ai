@@ -14,7 +14,9 @@ import {
   BarChart3,
   Download,
   Eye,
-  Star
+  Star,
+  Award,
+  Tag
 } from 'lucide-react';
 import axiosInstance from '../../../helpers/axiosConfig';
 import './ProductAnalysis.css';
@@ -25,7 +27,8 @@ const ProductAnalysis = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('all');
-  const [sortBy, setSortBy] = useState('name');
+  const [brandFilter, setBrandFilter] = useState('all');
+  const [sortBy, setSortBy] = useState('rank');
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const username = localStorage.getItem('username') || 'Ar-Ge Uzmanı';
@@ -72,29 +75,47 @@ const ProductAnalysis = () => {
   
   const parsePrice = (priceStr) => {
     if (!priceStr) return 0;
+    // Kore Won (원) ve diğer para birimlerini parse et
     const cleanPrice = priceStr.replace(/[^0-9.]/g, '');
     return parseFloat(cleanPrice) || 0;
   };
 
+  // Benzersiz markaları al
+  const uniqueBrands = [...new Set(products.map(p => p.brand).filter(Boolean))].sort();
+
   // Filtreleme ve sıralama
   const filteredAndSortedProducts = products
     .filter(product => {
-      const matchesSearch = product.name?.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = product.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           product.brand?.toLowerCase().includes(searchQuery.toLowerCase());
       
-      if (filterType === 'all') return matchesSearch;
-      if (filterType === 'expensive') return matchesSearch && parsePrice(product.price) > 50;
-      if (filterType === 'cheap') return matchesSearch && parsePrice(product.price) <= 50;
+      const matchesBrand = brandFilter === 'all' || product.brand === brandFilter;
       
-      return matchesSearch;
+      let matchesPrice = true;
+      if (filterType === 'expensive') matchesPrice = parsePrice(product.price) > 20000; // 20000원+
+      if (filterType === 'cheap') matchesPrice = parsePrice(product.price) <= 20000;
+      if (filterType === 'discounted') matchesPrice = product.originalPrice && parsePrice(product.originalPrice) > parsePrice(product.price);
+      
+      return matchesSearch && matchesBrand && matchesPrice;
     })
     .sort((a, b) => {
       switch (sortBy) {
+        case 'rank':
+          const rankA = parseInt(a.rank) || 999;
+          const rankB = parseInt(b.rank) || 999;
+          return rankA - rankB;
         case 'name':
           return (a.name || '').localeCompare(b.name || '');
+        case 'brand':
+          return (a.brand || '').localeCompare(b.brand || '');
         case 'price-asc':
           return parsePrice(a.price) - parsePrice(b.price);
         case 'price-desc':
           return parsePrice(b.price) - parsePrice(a.price);
+        case 'discount':
+          const discountA = a.originalPrice ? ((parsePrice(a.originalPrice) - parsePrice(a.price)) / parsePrice(a.originalPrice)) * 100 : 0;
+          const discountB = b.originalPrice ? ((parsePrice(b.originalPrice) - parsePrice(b.price)) / parsePrice(b.originalPrice)) * 100 : 0;
+          return discountB - discountA;
         default:
           return 0;
       }
@@ -104,14 +125,25 @@ const ProductAnalysis = () => {
   const stats = {
     totalProducts: products.length,
     avgPrice: products.length > 0 
-      ? (products.reduce((sum, p) => sum + parsePrice(p.price), 0) / products.length).toFixed(2)
+      ? (products.reduce((sum, p) => sum + parsePrice(p.price), 0) / products.length).toFixed(0)
       : 0,
     maxPrice: products.length > 0 
-      ? Math.max(...products.map(p => parsePrice(p.price))).toFixed(2)
+      ? Math.max(...products.map(p => parsePrice(p.price))).toFixed(0)
       : 0,
     minPrice: products.length > 0 
-      ? Math.min(...products.map(p => parsePrice(p.price))).toFixed(2)
-      : 0
+      ? Math.min(...products.map(p => parsePrice(p.price))).toFixed(0)
+      : 0,
+    uniqueBrands: uniqueBrands.length,
+    discountedProducts: products.filter(p => p.originalPrice && parsePrice(p.originalPrice) > parsePrice(p.price)).length
+  };
+
+  // İndirim oranını hesapla
+  const calculateDiscount = (originalPrice, currentPrice) => {
+    if (!originalPrice || !currentPrice) return 0;
+    const original = parsePrice(originalPrice);
+    const current = parsePrice(currentPrice);
+    if (original <= current) return 0;
+    return Math.round(((original - current) / original) * 100);
   };
 
   const exportData = () => {
@@ -176,7 +208,7 @@ const ProductAnalysis = () => {
               <DollarSign size={20} />
             </div>
             <div className="stat-content">
-              <div className="stat-value">${stats.avgPrice}</div>
+              <div className="stat-value">{stats.avgPrice}원</div>
               <div className="stat-label">Ortalama Fiyat</div>
             </div>
           </div>
@@ -186,8 +218,18 @@ const ProductAnalysis = () => {
               <TrendingUp size={20} />
             </div>
             <div className="stat-content">
-              <div className="stat-value">${stats.maxPrice}</div>
+              <div className="stat-value">{stats.maxPrice}원</div>
               <div className="stat-label">En Yüksek Fiyat</div>
+            </div>
+          </div>
+          
+          <div className="stat-card">
+            <div className="stat-icon star">
+              <Tag size={20} />
+            </div>
+            <div className="stat-content">
+              <div className="stat-value">{stats.uniqueBrands}</div>
+              <div className="stat-label">Benzersiz Marka</div>
             </div>
           </div>
           
@@ -196,8 +238,8 @@ const ProductAnalysis = () => {
               <Star size={20} />
             </div>
             <div className="stat-content">
-              <div className="stat-value">${stats.minPrice}</div>
-              <div className="stat-label">En Düşük Fiyat</div>
+              <div className="stat-value">{stats.discountedProducts}</div>
+              <div className="stat-label">İndirimli Ürün</div>
             </div>
           </div>
         </div>
@@ -210,7 +252,7 @@ const ProductAnalysis = () => {
             <Search size={20} />
             <input
               type="text"
-              placeholder="Ürün adında ara..."
+              placeholder="Ürün adı veya marka adında ara..."
               value={searchQuery}
               onChange={handleSearchChange}
               className="search-input"
@@ -226,8 +268,22 @@ const ProductAnalysis = () => {
                 className="filter-select"
               >
                 <option value="all">Tüm Ürünler</option>
-                <option value="expensive">Pahalı ($50+)</option>
-                <option value="cheap">Uygun (≤$50)</option>
+                <option value="expensive">Pahalı (20,000원+)</option>
+                <option value="cheap">Uygun (≤20,000원)</option>
+                <option value="discounted">İndirimli</option>
+              </select>
+            </div>
+
+            <div className="filter-item">
+              <select 
+                value={brandFilter} 
+                onChange={(e) => setBrandFilter(e.target.value)}
+                className="filter-select"
+              >
+                <option value="all">Tüm Markalar</option>
+                {uniqueBrands.map(brand => (
+                  <option key={brand} value={brand}>{brand}</option>
+                ))}
               </select>
             </div>
             
@@ -237,9 +293,12 @@ const ProductAnalysis = () => {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="filter-select"
               >
+                <option value="rank">Ranking Sırası</option>
                 <option value="name">İsme Göre</option>
+                <option value="brand">Markaya Göre</option>
                 <option value="price-asc">Fiyat: Düşük → Yüksek</option>
                 <option value="price-desc">Fiyat: Yüksek → Düşük</option>
+                <option value="discount">İndirim Oranına Göre</option>
               </select>
             </div>
           </div>
@@ -272,6 +331,14 @@ const ProductAnalysis = () => {
             <div className="products-grid">
               {filteredAndSortedProducts.map((product, index) => (
                 <div key={index} className="product-card">
+                  {/* Ranking Badge */}
+                  {product.rank && (
+                    <div className="ranking-badge">
+                      <Award size={12} />
+                      <span>#{product.rank}</span>
+                    </div>
+                  )}
+
                   <div className="product-image-container">
                     {product.image ? (
                       <img 
@@ -300,14 +367,40 @@ const ProductAnalysis = () => {
                         </a>
                       )}
                     </div>
+
+                    {/* Discount Badge */}
+                    {product.originalPrice && calculateDiscount(product.originalPrice, product.price) > 0 && (
+                      <div className="discount-badge">
+                        -{calculateDiscount(product.originalPrice, product.price)}%
+                      </div>
+                    )}
                   </div>
                   
                   <div className="product-info">
+                    {/* Brand */}
+                    {product.brand && (
+                      <div className="product-brand">
+                        <Tag size={12} />
+                        <span>{product.brand}</span>
+                      </div>
+                    )}
+
                     <h3 className="product-name" title={product.name}>
                       {product.name || 'İsimsiz Ürün'}
                     </h3>
-                    <div className="product-price">
-                      {product.price || 'Fiyat Yok'}
+                    
+                    <div className="product-pricing">
+                      {/* Original Price (crossed out if there's a discount) */}
+                      {product.originalPrice && parsePrice(product.originalPrice) > parsePrice(product.price) && (
+                        <div className="original-price">
+                          {product.originalPrice}
+                        </div>
+                      )}
+                      
+                      {/* Current Price */}
+                      <div className="current-price">
+                        {product.price || 'Fiyat Yok'}
+                      </div>
                     </div>
                   </div>
                   

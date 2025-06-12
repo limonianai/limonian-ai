@@ -1,4 +1,4 @@
-// src/components/Common/DepartmentSidebar.js - Tamamen Düzeltilmiş
+// src/components/Common/DepartmentSidebar.js - Türkiye uygunluk menüsü eklendi
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import '../../assets/scss/custom/limonian-theme.scss';
@@ -17,10 +17,6 @@ const DepartmentSidebar = () => {
   
   // Admin kullanıcı için departman adını düzelt
   const displayDepartment = isAdmin ? "Admin" : userDepartment;
-  
-  console.log('DepartmentSidebar - Current department:', userDepartment);
-  console.log('DepartmentSidebar - Is admin:', isAdmin);
-  console.log('DepartmentSidebar - Display department:', displayDepartment);
 
   return (
     <div className="app-sidebar">
@@ -92,8 +88,9 @@ const DepartmentSidebar = () => {
           </div>
         </>
       )}
-{/* Arge Departmanı için özel menu */}
-{userDepartment === 'Arge' && (
+
+      {/* Arge Departmanı için özel menu - TÜRKIYE UYGUNLUK EKLENDİ */}
+      {userDepartment === 'Arge' && (
         <>
           <div className="sidebar-section">
             <h3>Araştırma & Geliştirme</h3>
@@ -123,6 +120,25 @@ const DepartmentSidebar = () => {
                 >
                   <div className="menu-icon">📈</div>
                   <span>Ürün Analizi</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/arge/competitor-analysis"
+                  className={location.pathname === "/arge/competitor-analysis" ? "active" : ""}
+                >
+                  <div className="menu-icon">🎯</div>
+                  <span>Rakip Analizi</span>
+                </Link>
+              </li>
+              {/* YENİ EKLENEN TÜRKİYE UYGUNLUK MENÜ ÖĞESİ */}
+              <li>
+                <Link 
+                  to="/arge/turkey-compliance"
+                  className={location.pathname === "/arge/turkey-compliance" ? "active" : ""}
+                >
+                  <div className="menu-icon">🛡️</div>
+                  <span>Türkiye Uygunluk</span>
                 </Link>
               </li>
               <li>
@@ -196,15 +212,15 @@ const DepartmentSidebar = () => {
               </Link>
             </li>
             <li>
-  <Link 
-    to="/admin/create-user"
-    className={location.pathname === "/admin/create-user" ? "active" : ""}
-  >
-    <div className="menu-icon">👤</div>
-    <span>Kullanıcı Oluştur</span>
-  </Link>
-</li>
-             <li>
+              <Link 
+                to="/admin/create-user"
+                className={location.pathname === "/admin/create-user" ? "active" : ""}
+              >
+                <div className="menu-icon">👤</div>
+                <span>Kullanıcı Oluştur</span>
+              </Link>
+            </li>
+            <li>
               <Link 
                 to="/admin/chat-interactions"
                 className={location.pathname === "/admin/chat-interactions" ? "active" : ""}
@@ -225,24 +241,6 @@ const DepartmentSidebar = () => {
           </ul>
         </div>
       )}
-
-      
-      {/* {!isAdmin && userDepartment !== 'Yazilim' && (
-        <div className="sidebar-section">
-          <h3>Genel</h3>
-          <ul className="sidebar-menu">
-            <li>
-              <Link 
-                to="/chat"
-                className={location.pathname === "/chat" ? "active" : ""}
-              >
-                <div className="menu-icon">💬</div>
-                <span>AI Chat</span>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      )} */}
 
       {/* Help Section */}
       <div className="sidebar-section">

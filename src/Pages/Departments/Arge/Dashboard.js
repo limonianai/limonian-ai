@@ -1,4 +1,4 @@
-// src/Pages/Departments/Arge/Dashboard.js
+// src/Pages/Departments/Arge/Dashboard.js - Rakip analizi linki eklendi
 // Ar-Ge departmanı dashboard'u
 
 import React, { useState, useEffect } from 'react';
@@ -64,6 +64,7 @@ const ArgeDashboard = () => {
     }
   ]);
 
+  // GÜNCELLENEN HIZLI AKSIYONLAR - RAKİP ANALİZİ EKLENDİ
   const [quickActions] = useState([
     {
       title: 'Ürün Analizi',
@@ -73,17 +74,17 @@ const ArgeDashboard = () => {
       color: 'blue'
     },
     {
+      title: 'Rakip Analizi',
+      description: 'Rakipleri karşılaştır ve analiz et',
+      icon: <Target size={20} />,
+      action: '/arge/competitor-analysis',
+      color: 'teal'
+    },
+    {
       title: 'Trend Araştırması',
       description: 'Pazar trendlerini keşfet',
       icon: <TrendingUp size={20} />,
       action: '/arge/trend-research',
-      color: 'teal'
-    },
-    {
-      title: 'Veri Toplama',
-      description: 'Yeni veri kaynaklarını tarayın',
-      icon: <Database size={20} />,
-      action: '/arge/data-collection',
       color: 'purple'
     },
     {
