@@ -51,7 +51,7 @@ const Chat = () => {
         requestBody.threadId = threadId;
       }
 
-      const response = await fetch("http://localhost:3000/api/chat/query", {
+      const response = await fetch("https://limonianai.online/api/chat/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

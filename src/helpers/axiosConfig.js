@@ -3,8 +3,8 @@ import axios from "axios";
 
 // Create an axios instance with default config
 const axiosInstance = axios.create({
-  // baseURL: "https://limonianai.online/api",
-  baseURL: "http://localhost:3000/api", // Your API base URL
+   baseURL: "https://limonianai.online/api",
+ // baseURL: "http://localhost:3000/api", // Your API base URL
   timeout: 30000, // 30 seconds timeout
 });
 
